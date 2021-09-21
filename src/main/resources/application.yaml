@@ -1,0 +1,14 @@
+quarkus:
+  application:
+    name: users
+    version: v1.0.0-SNAPSHOT
+  http:
+    port: 80
+  #MONGO config uses env:
+    #QUARKUS_MONGODB_HOSTS=
+    #QUARKUS_MONGODB_CREDENTIALS_USERNAME=
+    #QUARKUS_MONGODB_CREDENTIALS_PASSWORD=
+  mongodb:
+    database: users
+  kubernetes:
+    replicas: 3
