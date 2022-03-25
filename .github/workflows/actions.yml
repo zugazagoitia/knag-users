@@ -124,4 +124,4 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/zugazagoitia/knag-users:${{ needs.build.outputs.version }}-${{ GITHUB_SHA }}
+            ghcr.io/zugazagoitia/knag-users:${{ needs.build.outputs.version }}-${{ github.sha }}
