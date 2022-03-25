@@ -1,0 +1,22 @@
+services:
+  users:
+    image: ghcr.io/zugazagoitia/knag-users:0.1.0
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATA_MONGODB_HOST: users-database
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_AUTHENTICATION-DATABASE: admin
+      SPRING_DATA_MONGODB_DATABASE: users
+      SPRING_DATA_MONGODB_USERNAME: users-microservice
+      SPRING_DATA_MONGODB_PASSWORD: fZrAjjRZ
+
+  users-database:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: users-microservice
+      MONGO_INITDB_ROOT_PASSWORD: fZrAjjRZ
+
+
