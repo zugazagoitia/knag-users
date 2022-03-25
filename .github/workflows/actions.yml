@@ -42,7 +42,7 @@ jobs:
         with:
           version-source: file
           version-file: build.gradle
-          version-file-extraction-pattern: '(?<=version\s*=\s*)\S+'
+          version-file-extraction-pattern: '(?<=version\s*=\s*'')\S+(?='')'
 
       - name: Output Version
         id: genver
