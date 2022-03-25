@@ -13,11 +13,10 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 
-
 jobs:
   test:
     name: Test Code
-    uses: zugazagoitia/actions-templates/java/gradle-test.yml@964d2adcd44e6e0ddd400d170e5e146a66b40e6b
+    uses: zugazagoitia/actions-templates/.github/workflows/gradle-test.yml@743ad102b1a347ecd0fc73702b05354b0289a67a
     with:
       java-version: '17'
       gradle-version: '7.4'
