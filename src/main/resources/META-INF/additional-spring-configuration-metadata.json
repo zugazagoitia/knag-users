@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "knag.key.priv",
+      "type": "java.lang.String",
+      "description": "Description for knag.key.priv."
+    },
+    {
+      "name": "knag.key.pub",
+      "type": "java.lang.String",
+      "description": "Description for knag.key.pub."
+    },
+    {
+      "name": "google.recaptcha.key.site",
+      "type": "java.lang.String",
+      "description": "Description for google.recaptcha.key.site."
+    },
+    {
+      "name": "google.recaptcha.key.secret",
+      "type": "java.lang.String",
+      "description": "Description for google.recaptcha.key.secret."
+    }
+  ] }

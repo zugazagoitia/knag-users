@@ -1,18 +1,20 @@
-package com.zugazagoitia.knag.users;
+package com.zugazagoitia.knag.users.repositories;
 
-import java.util.List;
-
+import com.zugazagoitia.knag.users.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+
+import java.util.List;
+import java.util.Optional;
 
 
 @RepositoryRestResource(collectionResourceRel = "users", path = "users")
 public interface UserRepository extends MongoRepository<User, String> {
 
 	List<User> findByName(@Param("name") String name);
-	User findByEmail(@Param("email") String email);
-	User findUserById(@Param("username") String username);
-	List<User> findBySubscription(@Param("subscription") String subscription);
+
+	Optional<User> findByEmail(@Param("email") String email);
+
 
 }
