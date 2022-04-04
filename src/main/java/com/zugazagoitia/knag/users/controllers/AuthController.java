@@ -88,14 +88,14 @@ public class AuthController {
 					@Content(mediaType = "application/json",
 							schema = @Schema(implementation = SuccessfulResponse.class))
 			}),
-			@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "403", description = "Token was not deleted", content = @Content),
-			@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "403", description = "Wrong credentials", content = @Content)
+			@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "403", description = "Token was not deleted", content = @Content)
 	})
 	@PostMapping(path = "/v1/logout",
-			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ApiResponse logout(@RequestHeader("Authorization") String authorizationHeader, @RequestBody String token) {
+	public ApiResponse logout(@RequestHeader("Authorization") String authorizationHeader) {
+
+		String token = authorizationHeader.substring(7);
 
 		if (refreshTokenRepository.existsById(token)) {
 			refreshTokenRepository.deleteById(token);

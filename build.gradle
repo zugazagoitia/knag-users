@@ -8,13 +8,15 @@ plugins {
 
 group = 'com.zugazagoitia.knag'
 //Must be formatted following the RegEx: /version\s*=\s*'\S+'/g
-version = '0.2.0'
+version = '0.2.1'
 sourceCompatibility = '17'
 
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+
+
 }
 
 repositories {
@@ -34,6 +36,10 @@ dependencies {
 
 	implementation 'com.auth0:java-jwt:3.19.1'
 
+	implementation 'net.sargue:mailgun:1.10.0'
+	implementation 'org.glassfish.jersey.inject:jersey-hk2:2.32'
+
+
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
 	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
@@ -41,6 +47,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+
 }
 
 bootJar{
