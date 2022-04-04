@@ -26,7 +26,7 @@ public class SessionToken {
 		this.refreshTokenUsed = refreshToken;
 		this.creation = Instant.now();
 		this.expiration = creation.plus(30, ChronoUnit.MINUTES);
-		this.token = TokenGenerator.generateNewSessionToken();
+		this.token = TokenGenerator.generateNewToken(TokenGenerator.TokenType.SESSION);
 	}
 
 }

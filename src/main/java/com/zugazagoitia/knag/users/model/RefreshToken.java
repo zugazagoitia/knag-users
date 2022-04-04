@@ -10,27 +10,27 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
-@Value
+@Data
 public class RefreshToken {
 
-	User user;
+	private User user;
 
-	Instant creation;
+	private Instant creation;
 
-	Instant expiration;
+	private Instant expiration;
 	@MongoId
-	String token;
+	private String token;
 
 	@NonFinal
-	String deviceName;
+	private String deviceName;
 	@NonFinal
-	String deviceType;
+	private String deviceType;
 
 	public RefreshToken(User user) {
 		this.user = user;
 		this.creation = Instant.now();
 		this.expiration = creation.plus(200, ChronoUnit.DAYS);
-		this.token = TokenGenerator.generateNewRefreshToken();
+		this.token = TokenGenerator.generateNewToken(TokenGenerator.TokenType.REFRESH);
 	}
 
 	public RefreshToken(User user, String deviceName, String deviceType) {
