@@ -1,6 +1,6 @@
 package com.zugazagoitia.knag.users;
 
-import com.zugazagoitia.knag.users.utils.crypto.KeySettings;
+import com.zugazagoitia.knag.users.services.crypto.KeySettings;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

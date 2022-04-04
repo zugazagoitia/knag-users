@@ -1,18 +1,22 @@
 package com.zugazagoitia.knag.users.model.responses;
 
 import com.zugazagoitia.knag.users.model.RefreshToken;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
 
-public class RefreshTokenResponse extends ApiResponse {
+@Value
+@EqualsAndHashCode(callSuper = true)
+public class RefreshTokenResponse extends SuccessfulResponse {
 
-	private final String email;
+	String email;
 
-	private final String refresh_token;
+	String refresh_token;
 
-	private final String token_type;
+	String token_type;
 
-	private final long creation;
+	long creation;
 
-	private final long expiration;
+	long expiration;
 
 	private RefreshTokenResponse(RefreshToken refreshToken, int status, String message, String token_type) {
 		super(status, message);
@@ -27,23 +31,4 @@ public class RefreshTokenResponse extends ApiResponse {
 		this(refreshToken, status, message, "Bearer");
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public String getRefresh_token() {
-		return refresh_token;
-	}
-
-	public long getExpiration() {
-		return expiration;
-	}
-
-	public long getCreation() {
-		return creation;
-	}
-
-	public String getToken_type() {
-		return token_type;
-	}
 }

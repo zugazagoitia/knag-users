@@ -1,5 +1,7 @@
 package com.zugazagoitia.knag.users.model.responses;
 
+
+
 public class SuccessfulResponse extends ApiResponse {
 	public SuccessfulResponse(String response) {
 		this(200, response);

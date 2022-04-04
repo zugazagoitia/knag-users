@@ -1,23 +1,30 @@
 package com.zugazagoitia.knag.users.model;
 
-import com.zugazagoitia.knag.users.utils.crypto.TokenGenerator;
+import com.zugazagoitia.knag.users.services.crypto.TokenGenerator;
+import lombok.Data;
+import lombok.Value;
+import lombok.experimental.NonFinal;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
+@Value
 public class RefreshToken {
 
-	private final User user;
+	User user;
 
-	private final Instant creation;
+	Instant creation;
 
-	private final Instant expiration;
+	Instant expiration;
 	@MongoId
-	private final String token;
-	private String deviceName;
-	private String deviceType;
+	String token;
+
+	@NonFinal
+	String deviceName;
+	@NonFinal
+	String deviceType;
 
 	public RefreshToken(User user) {
 		this.user = user;
@@ -42,34 +49,4 @@ public class RefreshToken {
 		this.token = token;
 	}
 
-	public RefreshToken(User user, Instant creation, Instant expiration, String token) {
-		this.user = user;
-		this.creation = creation;
-		this.expiration = expiration;
-		this.token = token;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public Instant getCreation() {
-		return creation;
-	}
-
-	public Instant getExpiration() {
-		return expiration;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public String getDeviceName() {
-		return deviceName;
-	}
-
-	public String getDeviceType() {
-		return deviceType;
-	}
 }

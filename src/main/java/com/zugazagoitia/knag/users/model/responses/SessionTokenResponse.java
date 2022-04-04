@@ -1,10 +1,15 @@
 package com.zugazagoitia.knag.users.model.responses;
 
+import lombok.EqualsAndHashCode;
+import lombok.Value;
+
+@Value
+@EqualsAndHashCode(callSuper = true)
 public class SessionTokenResponse extends SuccessfulResponse {
 
-	private final String token;
+	String token;
 
-	private final String token_type;
+	String token_type;
 
 	private SessionTokenResponse(String token, String token_type) {
 		super("Success");
@@ -16,11 +21,4 @@ public class SessionTokenResponse extends SuccessfulResponse {
 		this(token, "Bearer");
 	}
 
-	public String getToken() {
-		return token;
-	}
-
-	public String getToken_type() {
-		return token_type;
-	}
 }

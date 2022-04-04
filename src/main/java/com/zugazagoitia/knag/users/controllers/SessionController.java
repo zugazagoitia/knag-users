@@ -5,7 +5,7 @@ import com.zugazagoitia.knag.users.model.SessionToken;
 import com.zugazagoitia.knag.users.model.exceptions.UnauthorizedException;
 import com.zugazagoitia.knag.users.model.responses.SessionTokenResponse;
 import com.zugazagoitia.knag.users.repositories.RefreshTokenRepository;
-import com.zugazagoitia.knag.users.utils.crypto.JwtProvider;
+import com.zugazagoitia.knag.users.services.crypto.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;

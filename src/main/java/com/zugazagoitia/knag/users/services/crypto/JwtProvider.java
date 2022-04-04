@@ -1,4 +1,4 @@
-package com.zugazagoitia.knag.users.utils.crypto;
+package com.zugazagoitia.knag.users.services.crypto;
 
 
 import com.auth0.jwt.JWT;

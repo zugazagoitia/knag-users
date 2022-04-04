@@ -1,47 +1,27 @@
 package com.zugazagoitia.knag.users.model.forms;
 
+import lombok.Value;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+@Value
 public class RegisterForm {
 
-	@NotEmpty
-	@Email
-	private final String email;
+	@NotEmpty @Email
+	String email;
+
 	@Size(min = 8, max = 256)
-	private final String password;
+	String password;
+
 	@Size(min = 3, max = 256)
-	private final String name;
+	String name;
+
 	@Size(min = 3, max = 256)
-	private final String surname;
-	private final String captcha;
+	String surname;
 
-	public RegisterForm(String email, String password, String name, String surname, String captcha) {
-		this.email = email;
-		this.password = password;
-		this.name = name;
-		this.surname = surname;
-		this.captcha = captcha;
-	}
+	@NotEmpty
+	String captcha;
 
-	public String getEmail() {
-		return email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public String getCaptcha() {
-		return captcha;
-	}
 }

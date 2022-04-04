@@ -1,6 +1,7 @@
-package com.zugazagoitia.knag.users.utils.captcha;
+package com.zugazagoitia.knag.users.services.captcha;
 
 import com.fasterxml.jackson.annotation.*;
+import lombok.Data;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +14,7 @@ import java.util.Map;
 		"hostname",
 		"error-codes"
 })
+@Data
 public class GoogleResponse {
 
 	@JsonProperty("success")
@@ -43,37 +45,7 @@ public class GoogleResponse {
 		return false;
 	}
 
-	public boolean isSuccess() {
-		return success;
-	}
 
-	public void setSuccess(boolean success) {
-		this.success = success;
-	}
-
-	public String getChallengeTs() {
-		return challengeTs;
-	}
-
-	public void setChallengeTs(String challengeTs) {
-		this.challengeTs = challengeTs;
-	}
-
-	public String getHostname() {
-		return hostname;
-	}
-
-	public void setHostname(String hostname) {
-		this.hostname = hostname;
-	}
-
-	public ErrorCode[] getErrorCodes() {
-		return errorCodes;
-	}
-
-	public void setErrorCodes(ErrorCode[] errorCodes) {
-		this.errorCodes = errorCodes;
-	}
 
 	enum ErrorCode {
 		MissingSecret, InvalidSecret,
@@ -94,5 +66,4 @@ public class GoogleResponse {
 		}
 	}
 
-	// standard getters and setters
 }

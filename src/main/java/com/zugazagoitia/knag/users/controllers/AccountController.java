@@ -5,7 +5,7 @@ import com.zugazagoitia.knag.users.model.exceptions.CaptchaException;
 import com.zugazagoitia.knag.users.model.forms.RegisterForm;
 import com.zugazagoitia.knag.users.model.responses.SuccessfulResponse;
 import com.zugazagoitia.knag.users.repositories.UserRepository;
-import com.zugazagoitia.knag.users.utils.captcha.CaptchaService;
+import com.zugazagoitia.knag.users.services.captcha.CaptchaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

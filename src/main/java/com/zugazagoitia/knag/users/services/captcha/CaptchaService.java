@@ -1,4 +1,4 @@
-package com.zugazagoitia.knag.users.utils.captcha;
+package com.zugazagoitia.knag.users.services.captcha;
 
 import com.zugazagoitia.knag.users.model.exceptions.CaptchaException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 public class CaptchaService {
 
 	private static final Pattern RESPONSE_PATTERN = Pattern.compile("[A-Za-z0-9_-]+");
+
 	private final CaptchaSettings captchaSettings;
 	private final RestOperations restTemplate;
 
