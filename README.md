@@ -26,7 +26,7 @@
   </a>
 </p>
 
-##Requirements
+## Requirements
 
 In order to run the service the following software/APIs are required
 
@@ -35,11 +35,11 @@ In order to run the service the following software/APIs are required
 - The [reCAPTCHA v2](https://developers.google.com/recaptcha/intro) API for the registration captcha
 
 
-##Usage
+## Usage
 
 Working images are published to the GitHub Packages repository attached to this repository, they are also published under [releases](https://github.com/zugazagoitia/knag-users/releases).
 
-##Configuration
+## Configuration
 
 The following environment variables need to be populated in order for the service to work correctly.
 
@@ -60,7 +60,7 @@ The following environment variables need to be populated in order for the servic
 | KNAG_KEY_PRIV                               | Private key used for signing JWTs                                    | PKCS #8 Syntax |
 | KNAG_KEY_PUB                                | Public key used for verifying JWTs                                   |   X.509 Syntax |
 
- ##Endpoints
+ ## Endpoints
 
 The service is exposed on the port `8080`
 
