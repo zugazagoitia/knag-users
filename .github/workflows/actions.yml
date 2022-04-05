@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup Java JDK
-        uses: actions/setup-java@v3.0.0
+        uses: actions/setup-java@v3.1.0
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -95,6 +95,15 @@ jobs:
           tags: |
             ghcr.io/zugazagoitia/knag-users:latest
             ghcr.io/zugazagoitia/knag-users:${{ needs.build.outputs.version }}
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          body: |
+            Image published at ghcr.io/zugazagoitia/knag-users:${{ needs.build.outputs.version }}
+          tag: ${{ needs.build.outputs.version }}
+          generateReleaseNotes: true
+          commit: main
 
 
   env-container:
