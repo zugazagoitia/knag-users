@@ -4,8 +4,7 @@ on:
   push:
     branches: [main, dev]
 
-permissions:
-  packages: write
+permissions: write-all
 
 
 env:
