@@ -96,6 +96,15 @@ jobs:
             ghcr.io/zugazagoitia/knag-users:latest
             ghcr.io/zugazagoitia/knag-users:${{ needs.build.outputs.version }}
 
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          body: |
+            Image published at ghcr.io/zugazagoitia/knag-users:${{ needs.build.outputs.version }}
+          tag: ${{ needs.build.outputs.version }}
+          generateReleaseNotes: true
+          commit: main
+
 
   env-container:
     needs: build
