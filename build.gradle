@@ -37,7 +37,7 @@ dependencies {
 	implementation 'com.auth0:java-jwt:3.19.1'
 
 	implementation 'net.sargue:mailgun:1.10.0'
-	implementation 'org.glassfish.jersey.inject:jersey-hk2:2.32'
+	implementation 'org.glassfish.jersey.inject:jersey-hk2:3.0.4'
 
 
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
