@@ -99,7 +99,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           body: |
-            Image published at ghcr.io/zugazagoitia/knag-users:${{ needs.build.outputs.version }}
+            Image published at `ghcr.io/zugazagoitia/knag-users:${{ needs.build.outputs.version }}`
           tag: ${{ needs.build.outputs.version }}
           generateReleaseNotes: true
           commit: main
