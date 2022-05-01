@@ -1,9 +1,6 @@
 package com.zugazagoitia.knag.users.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 
 @Data
@@ -18,18 +15,21 @@ public class User {
 	private String name;
 	private String surname;
 
+	@NonNull
 	private String email;
+	@NonNull
 	private String password;
 
-	private String subscription;
+	private Role role;
 	private boolean emailVerified;
 
 
-	public User(String name, String surname, String email, String password) {
+	public User(String name, String surname, String email, String password, Role role, boolean emailVerified) {
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
 		this.password = password;
-		this.emailVerified = false;
+		this.role = role;
+		this.emailVerified = emailVerified;
 	}
 }

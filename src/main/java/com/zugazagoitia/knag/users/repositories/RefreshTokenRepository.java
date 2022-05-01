@@ -7,4 +7,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RefreshTokenRepository extends MongoRepository<RefreshToken, String> {
 
+	boolean deleteRefreshTokenById(String id);
+
+	RefreshToken findRefreshTokenById(String id);
+
+	boolean refreshTokenExists(String refreshToken);
 }

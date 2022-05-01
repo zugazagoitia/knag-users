@@ -1,21 +1,18 @@
 package com.zugazagoitia.knag.users.controllers;
 
 import com.zugazagoitia.knag.users.model.RefreshToken;
-import com.zugazagoitia.knag.users.model.User;
 import com.zugazagoitia.knag.users.model.exceptions.UnauthorizedException;
 import com.zugazagoitia.knag.users.model.forms.LoginForm;
 import com.zugazagoitia.knag.users.model.responses.ApiResponse;
 import com.zugazagoitia.knag.users.model.responses.RefreshTokenResponse;
 import com.zugazagoitia.knag.users.model.responses.SuccessfulResponse;
-import com.zugazagoitia.knag.users.repositories.RefreshTokenRepository;
-import com.zugazagoitia.knag.users.repositories.UserRepository;
+import com.zugazagoitia.knag.users.services.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,21 +20,19 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 public class AuthController {
 
-	private final UserRepository userRepository;
-
-	private final RefreshTokenRepository refreshTokenRepository;
+	final AuthService authService;
 
 	@Autowired
-	public AuthController(UserRepository userRepository, RefreshTokenRepository refreshTokenRepository) {
-		this.userRepository = userRepository;
-		this.refreshTokenRepository = refreshTokenRepository;
+	public AuthController(AuthService authService) {
+		this.authService = authService;
 	}
 
-	@Operation(summary = "Log in using credentials")
+	@Operation(summary = "Log in using credentials", description = "Returns a refresh token if credentials are correct", tags = {"auth"})
 	@ApiResponses(value = {
 			@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "Token created", content = {
 					@Content(mediaType = "application/json",
@@ -57,32 +52,22 @@ public class AuthController {
 
 		//TODO save device type/name
 
-		User user = userRepository.findByEmail(loginForm.getEmail()).orElse(null);
-
-		if (user == null) {
+		if (!authService.userExists(loginForm.getEmail())) {
 			throw new UnauthorizedException();
 		} else {
-
-			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(16);
-			if (passwordEncoder.matches(loginForm.getPassword(), user.getPassword())) {
-				if (user.isEmailVerified()) {
-					RefreshToken rt = new RefreshToken(user);
-					refreshTokenRepository.insert(rt);
-					return new RefreshTokenResponse(rt, 201, "success");
-				} else {
-					return new SuccessfulResponse(212, "email not verified");
-				}
-
+			Optional<RefreshToken> token = authService.authenticate(loginForm.getEmail(), loginForm.getPassword());
+			if (token.isPresent()) {
+				return new RefreshTokenResponse(token.get(), 201, "success");
+			} else if (!authService.isEmailVerified(loginForm.getEmail())) {
+				return new SuccessfulResponse(212, "email not verified");
 			} else {
 				throw new UnauthorizedException();
 			}
-
-
 		}
 
 	}
 
-	@Operation(summary = "Log out using refresh token")
+	@Operation(summary = "Log out using refresh token", description = "Deletes the refresh token if it exists", tags = {"auth"})
 	@ApiResponses(value = {
 			@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Token removed", content = {
 					@Content(mediaType = "application/json",
@@ -97,12 +82,10 @@ public class AuthController {
 
 		String token = authorizationHeader.substring(7);
 
-		if (refreshTokenRepository.existsById(token)) {
-			refreshTokenRepository.deleteById(token);
+		if (authService.deleteRefreshToken(token))
 			return new SuccessfulResponse("success");
-		} else {
+		else
 			throw new UnauthorizedException();
-		}
 
 	}
 

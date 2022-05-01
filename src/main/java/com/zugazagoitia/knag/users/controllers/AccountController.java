@@ -1,12 +1,14 @@
 package com.zugazagoitia.knag.users.controllers;
 
 import com.zugazagoitia.knag.users.model.EmailVerificationToken;
+import com.zugazagoitia.knag.users.model.Role;
 import com.zugazagoitia.knag.users.model.User;
 import com.zugazagoitia.knag.users.model.exceptions.CaptchaException;
 import com.zugazagoitia.knag.users.model.forms.RegisterForm;
 import com.zugazagoitia.knag.users.model.responses.SuccessfulResponse;
 import com.zugazagoitia.knag.users.repositories.EmailVerificationRepository;
 import com.zugazagoitia.knag.users.repositories.UserRepository;
+import com.zugazagoitia.knag.users.services.AccountService;
 import com.zugazagoitia.knag.users.services.captcha.CaptchaService;
 import com.zugazagoitia.knag.users.services.mail.MailService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,20 +35,14 @@ public class AccountController {
 
 	final CaptchaService captchaService;
 
-	final MailService mailService;
-
-	final UserRepository userRepository;
-
-	final EmailVerificationRepository emailVerificationRepository;
-
+	final AccountService accountService;
 
 
 	@Autowired
-	public AccountController(CaptchaService captchaService, MailService mailService, UserRepository userRepository, EmailVerificationRepository emailVerificationRepository) {
+	public AccountController(CaptchaService captchaService, AccountService accountService) {
 		this.captchaService = captchaService;
-		this.mailService = mailService;
-		this.userRepository = userRepository;
-		this.emailVerificationRepository = emailVerificationRepository;
+		this.accountService = accountService;
+
 	}
 
 	@Operation(summary = "Register an Account")
@@ -70,35 +66,22 @@ public class AccountController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong Captcha");
 		}
 
-		if (userRepository.findByEmail(registerForm.getEmail()).isPresent()) {
+		if (accountService.userExistsWithEmail(registerForm.getEmail())) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, "Email is already registered");
 		}
 
-
-
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(16);
-
-		User newUser = new User(registerForm.getName(),
+		accountService.createUser(registerForm.getName(),
 				registerForm.getSurname(),
 				registerForm.getEmail(),
-				passwordEncoder.encode(registerForm.getPassword()));
-
-
-		User createdUser = userRepository.insert(newUser);
-
-		EmailVerificationToken emailToken = new EmailVerificationToken(createdUser);
-
-		mailService.sendVerificationEmail(emailToken);
-
-		emailVerificationRepository.insert(emailToken);
+				registerForm.getPassword());
 
 		return new SuccessfulResponse(201, "User created, please validate email before logging in.");
 	}
 
 
-	@Operation(summary = "Validate Email")
+	@Operation(summary = "Verify Email")
 	@ApiResponses(value = {
-			@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Email Validated", content = {
+			@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Email verified", content = {
 					@Content(mediaType = "application/json",
 							schema = @Schema(implementation = SuccessfulResponse.class))
 			}),
@@ -107,21 +90,12 @@ public class AccountController {
 	@PostMapping(path = "/v1/verifyEmail",
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public SuccessfulResponse validateEmail(@NotEmpty @RequestParam String id) {
+	public SuccessfulResponse verifyEmail(@NotEmpty @RequestParam String id) {
 
-		Optional<EmailVerificationToken> token = emailVerificationRepository.findById(id);
-
-		if(token.isPresent()){
-
-			User user = userRepository.findById(token.get().getUser().getId()).get();
-			user.setEmailVerified(true);
-
-			userRepository.save(user);
-			emailVerificationRepository.delete(token.get());
-
+		if(accountService.validateEmail(id))
 			return new SuccessfulResponse(200, "Success");
-
-		}else throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong or unknown token");
+		else
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong or unknown token");
 
 
 	}
