@@ -27,6 +27,7 @@ public class SessionController {
 		this.jwtProvider = jwtProvider;
 	}
 
+	//TODO document openapi
 	@PostMapping("/v1/session")
 	@ResponseBody
 	public SessionTokenResponse createSession(@RequestHeader("Authorization") String authorization) {
