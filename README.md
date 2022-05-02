@@ -37,7 +37,7 @@ In order to run the service the following software/APIs are required
 
 ## Usage
 
-Working images are published to the GitHub Packages repository attached to this repository, they are also published under [releases](https://github.com/zugazagoitia/knag-users/releases).
+Container images are published to the GitHub Packages repository attached to this repository, they are also published under [releases](https://github.com/zugazagoitia/knag-users/releases).
 
 ## Configuration
 

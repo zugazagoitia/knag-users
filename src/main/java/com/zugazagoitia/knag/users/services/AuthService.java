@@ -4,7 +4,6 @@ package com.zugazagoitia.knag.users.services;
 import com.zugazagoitia.knag.users.model.RefreshToken;
 import com.zugazagoitia.knag.users.model.SessionToken;
 import com.zugazagoitia.knag.users.model.User;
-import com.zugazagoitia.knag.users.model.exceptions.UnauthorizedException;
 import com.zugazagoitia.knag.users.repositories.RefreshTokenRepository;
 import com.zugazagoitia.knag.users.repositories.UserRepository;
 import com.zugazagoitia.knag.users.services.crypto.JwtProvider;
@@ -73,7 +72,7 @@ public class AuthService {
 	 * @return True if the refresh token was deleted, false otherwise.
 	 */
 	public boolean deleteRefreshToken(String refreshToken) {
-		return refreshTokenRepository.deleteRefreshTokenById(refreshToken);
+		return refreshTokenRepository.deleteRefreshTokenByToken(refreshToken);
 	}
 
 	/**
@@ -82,7 +81,7 @@ public class AuthService {
 	 * @return True if the refresh token exists, false otherwise.
 	 */
 	public boolean refreshTokenExists(String refreshToken) {
-		return refreshTokenRepository.refreshTokenExists(refreshToken);
+		return refreshTokenRepository.existsByToken(refreshToken);
 	}
 
 	/**

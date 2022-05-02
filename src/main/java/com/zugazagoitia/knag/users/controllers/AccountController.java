@@ -1,16 +1,11 @@
 package com.zugazagoitia.knag.users.controllers;
 
-import com.zugazagoitia.knag.users.model.EmailVerificationToken;
-import com.zugazagoitia.knag.users.model.Role;
-import com.zugazagoitia.knag.users.model.User;
+
 import com.zugazagoitia.knag.users.model.exceptions.CaptchaException;
 import com.zugazagoitia.knag.users.model.forms.RegisterForm;
 import com.zugazagoitia.knag.users.model.responses.SuccessfulResponse;
-import com.zugazagoitia.knag.users.repositories.EmailVerificationRepository;
-import com.zugazagoitia.knag.users.repositories.UserRepository;
 import com.zugazagoitia.knag.users.services.AccountService;
 import com.zugazagoitia.knag.users.services.captcha.CaptchaService;
-import com.zugazagoitia.knag.users.services.mail.MailService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -18,17 +13,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import java.util.Optional;
 
 @Controller
 public class AccountController {
@@ -57,13 +47,14 @@ public class AccountController {
 	@PostMapping(path = "/v1/register",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
 	public SuccessfulResponse register(@Valid @RequestBody RegisterForm registerForm) {
 
 		try {
 			captchaService.processResponse(registerForm.getCaptcha());
 		} catch (CaptchaException e) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong Captcha");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong Captcha or Body");
 		}
 
 		if (accountService.userExistsWithEmail(registerForm.getEmail())) {
@@ -85,7 +76,7 @@ public class AccountController {
 					@Content(mediaType = "application/json",
 							schema = @Schema(implementation = SuccessfulResponse.class))
 			}),
-			@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Wrong ", content = @Content)
+			@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Wrong or unknown token", content = @Content)
 	})
 	@PostMapping(path = "/v1/verifyEmail",
 			produces = MediaType.APPLICATION_JSON_VALUE)
@@ -96,7 +87,5 @@ public class AccountController {
 			return new SuccessfulResponse(200, "Success");
 		else
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wrong or unknown token");
-
-
 	}
 }
