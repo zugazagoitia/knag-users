@@ -4,6 +4,8 @@ plugins {
 	id "io.freefair.lombok" version "6.4.3"
 	id 'java'
 	id 'com.avast.gradle.docker-compose' version "0.16.2"
+	id 'jacoco'
+
 }
 
 group = 'com.zugazagoitia.knag'
@@ -15,7 +17,15 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+}
 
+
+jacocoTestReport {
+	reports {
+		xml.required = true
+		csv.required = false
+	}
+		dependsOn test // tests are required to run before generating the report
 
 }
 
@@ -56,4 +66,5 @@ bootJar{
 
 tasks.named('test') {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
 }
