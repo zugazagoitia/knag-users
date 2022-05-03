@@ -21,6 +21,9 @@
   <a href="https://github.com/zugazagoitia/knag-users/actions/workflows/actions.yml?query=branch%3Adev">
     <img src="https://img.shields.io/github/workflow/status/zugazagoitia/knag-users/build/dev?label=build%20%28dev%29&logo=githubactions&logoColor=%23FFFFFF" alt="dev build badge">
   </a>
+  <a href="https://codecov.io/gh/zugazagoitia/knag-users">
+    <img src="https://codecov.io/gh/zugazagoitia/knag-users/branch/main/graph/badge.svg?token=FbNcbbdweR" alt="Code coverage"/>
+  </a>
   <a href="https://github.com/zugazagoitia/knag-users/releases">
     <img alt="GitHub release (latest SemVer)" src="https://img.shields.io/github/v/release/zugazagoitia/knag-users?sort=semver">
   </a>
@@ -37,7 +40,7 @@ In order to run the service the following software/APIs are required
 
 ## Usage
 
-Working images are published to the GitHub Packages repository attached to this repository, they are also published under [releases](https://github.com/zugazagoitia/knag-users/releases).
+Container images are published to the GitHub Packages repository attached to this repository, they are also published under [releases](https://github.com/zugazagoitia/knag-users/releases).
 
 ## Configuration
 

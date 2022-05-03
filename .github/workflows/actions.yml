@@ -11,14 +11,14 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
-
 jobs:
   test:
     name: Test Code
-    uses: zugazagoitia/actions-templates/.github/workflows/gradle-test.yml@743ad102b1a347ecd0fc73702b05354b0289a67a
+    uses: zugazagoitia/actions-templates/.github/workflows/gradle-test.yml@656937c556cf305effd966314a7bc7ffda9b87eb
     with:
       java-version: '17'
       gradle-version: '7.4'
+      upload-codecov: true
 
   build:
     needs: test
@@ -99,7 +99,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           body: |
-            Image published at ghcr.io/zugazagoitia/knag-users:${{ needs.build.outputs.version }}
+            Image published at `ghcr.io/zugazagoitia/knag-users:${{ needs.build.outputs.version }}`
           tag: ${{ needs.build.outputs.version }}
           generateReleaseNotes: true
           commit: main
