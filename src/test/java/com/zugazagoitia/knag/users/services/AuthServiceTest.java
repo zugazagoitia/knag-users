@@ -42,7 +42,7 @@ class AuthServiceTest {
 	private AuthService authService;
 
 
-	private final User validUser = new User("name", "surName", "valid@email.com", "$2a$16$t5jptEZ15lWDkKDJZ6zxdOC8.hA5fWJP2z9PpbI0I44lp9A3GngPy", Role.USER, false);
+	private final User validUser = new User("name", "surName", "valid@email.com", "$2a$16$t5jptEZ15lWDkKDJZ6zxdOC8.hA5fWJP2z9PpbI0I44lp9A3GngPy", Role.USER, true);
 
 	private final LoginForm validLoginForm = new LoginForm("valid@email.com", "password", null, null);
 
@@ -134,7 +134,7 @@ class AuthServiceTest {
 
 	@Test
 	void testIsEmailVerified() {
-		when(userRepository.findByEmail(anyString())).thenReturn(null);
+		when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(validUser));
 
 		boolean result = authService.isEmailVerified("email");
 		Assertions.assertEquals(true, result);
