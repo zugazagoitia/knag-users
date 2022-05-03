@@ -34,7 +34,7 @@ class AccountServiceTest {
 	@BeforeEach
 	void setUp() {
 		MockitoAnnotations.openMocks(this);
-		this.accountService = new AccountService(mailService,userRepository, emailVerificationRepository);
+		this.accountService = new AccountService(mailService, userRepository, emailVerificationRepository);
 	}
 
 	@Test

@@ -34,7 +34,8 @@ public class AuthService {
 
 	/**
 	 * Authenticates a user and returns a {@link RefreshToken} if the credentials are valid.
-	 * @param email The email of the user.
+	 *
+	 * @param email    The email of the user.
 	 * @param password The password of the user.
 	 * @return An {@link java.util.Optional} containing a {@link RefreshToken} if the credentials are valid, an empty {@link java.util.Optional} otherwise.
 	 */
@@ -55,6 +56,7 @@ public class AuthService {
 
 	/**
 	 * Returns a new session token if the given refresh token is valid.
+	 *
 	 * @param refreshToken The refresh token.
 	 * @return A new session token if the given refresh token is valid.
 	 */
@@ -68,6 +70,7 @@ public class AuthService {
 
 	/**
 	 * Deletes the refresh token from the database.
+	 *
 	 * @param refreshToken The refresh token.
 	 * @return True if the refresh token was deleted, false otherwise.
 	 */
@@ -77,6 +80,7 @@ public class AuthService {
 
 	/**
 	 * Checks if the given refresh token exists in the database.
+	 *
 	 * @param refreshToken The refresh token.
 	 * @return True if the refresh token exists, false otherwise.
 	 */
@@ -86,6 +90,7 @@ public class AuthService {
 
 	/**
 	 * Checks if the given user exists in the database.
+	 *
 	 * @param email The email of the user.
 	 * @return True if the user exists, false otherwise.
 	 */
@@ -95,10 +100,12 @@ public class AuthService {
 
 	/**
 	 * Checks if the given user has a verified email.
+	 *
 	 * @param email The email of the user.
 	 * @return True if the user has a verified email, false otherwise.
 	 */
 	public boolean isEmailVerified(String email) {
+
 		return userRepository.findByEmail(email).get().isEmailVerified();
 	}
 
