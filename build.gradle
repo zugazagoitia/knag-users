@@ -1,16 +1,16 @@
 plugins {
-	id 'org.springframework.boot' version '2.6.7'
+	id 'org.springframework.boot' version '2.7.0'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id "io.freefair.lombok" version "6.4.3"
 	id 'java'
-	id 'com.avast.gradle.docker-compose' version "0.16.2"
+	id 'com.avast.gradle.docker-compose' version "0.16.4"
 	id 'jacoco'
 
 }
 
 group = 'com.zugazagoitia.knag'
 //Must be formatted following the RegEx: /version\s*=\s*'\S+'/g
-version = '0.3.1'
+version = '0.3.2'
 sourceCompatibility = '17'
 
 configurations {
@@ -44,7 +44,7 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
 	implementation 'org.springdoc:springdoc-openapi-data-rest:1.6.8'
 
-	implementation 'com.auth0:java-jwt:3.19.1'
+	implementation 'com.auth0:java-jwt:3.19.2'
 
 	implementation 'net.sargue:mailgun:1.10.0'
 	implementation 'org.glassfish.jersey.inject:jersey-hk2:3.0.4'
