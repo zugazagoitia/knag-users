@@ -10,7 +10,7 @@ plugins {
 
 group = 'com.zugazagoitia.knag'
 //Must be formatted following the RegEx: /version\s*=\s*'\S+'/g
-version = '0.3.2'
+version = '0.3.3'
 sourceCompatibility = '17'
 
 configurations {
@@ -41,8 +41,8 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-validation"
 
 
-	implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
-	implementation 'org.springdoc:springdoc-openapi-data-rest:1.6.8'
+	implementation 'org.springdoc:springdoc-openapi-data-rest:1.6.9'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
 
 	implementation 'com.auth0:java-jwt:3.19.2'
 
