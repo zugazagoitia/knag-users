@@ -37,13 +37,13 @@ spec:
         - name: SPRING_DATA_MONGODB_HOST
           value: {{ .Values.db.host | default (include "mongodb.service.nameOverride" .Subcharts.mongodb) | quote}}
         - name: SPRING_DATA_MONGODB_PORT
-          value: {{ required "Missing database port" .Values.db.port }}
+          value: {{ required "Missing database port" .Values.db.port | quote}}
         - name: SPRING_DATA_MONGODB_AUTHENTICATION-DATABASE
           value: {{ required "Missing value: authentication-database" .Values.db.name | quote}}
         - name: SPRING_DATA_MONGODB_DATABASE
-          value: {{ .Values.db.name }}
+          value: {{ .Values.db.name | quote}}
         - name: SPRING_DATA_MONGODB_USERNAME
-          value: {{ .Values.db.username }}
+          value: {{ .Values.db.username | quote}}
         - name: SPRING_DATA_MONGODB_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -63,9 +63,9 @@ spec:
         - name: RECAPTCHA_KEY_SECRET
           value: {{ required "Missing recaptcha secret" .Values.recaptcha.secretKey | quote}}
         - name: KNAG_KEY_PRIV
-          value: {{required "Missing rsa private key" .Values.rsaKey.priv}}
+          value: {{required "Missing rsa private key" .Values.rsaKey.priv | quote}}
         - name: KNAG_KEY_PUB
-          value: {{required "Missing rsa public key" .Values.rsaKey.pub}}
+          value: {{required "Missing rsa public key" .Values.rsaKey.pub | quote}}
 
 
         ports:

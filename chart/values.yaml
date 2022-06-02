@@ -8,7 +8,7 @@ db:
   port: 27017
 
 mailgun:
-  apiUrl: "https://api.eu.mailgun.net/v3"
+  apiUrl:
   apiKey:
   domain:
   sender:
