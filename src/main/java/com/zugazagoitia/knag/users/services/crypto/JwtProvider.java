@@ -51,16 +51,17 @@ public class JwtProvider {
 
 	private static class KeyHelper {
 
-		private static final String PRIVATE_HEADER = "-----BEGIN PRIVATE KEY-----\n";
-		private static final String PRIVATE_FOOTER = "\n-----END PRIVATE KEY-----\n";
-		private static final String PUBLIC_HEADER = "-----BEGIN PUBLIC KEY-----\n";
-		private static final String PUBLIC_FOOTER = "\n-----END PUBLIC KEY-----\n";
+		private static final String PRIVATE_HEADER = "-----BEGIN PRIVATE KEY-----";
+		private static final String PRIVATE_FOOTER = "-----END PRIVATE KEY-----";
+		private static final String PUBLIC_HEADER = "-----BEGIN PUBLIC KEY-----";
+		private static final String PUBLIC_FOOTER = "-----END PUBLIC KEY-----";
 
 		public static PrivateKey loadPrivateKeyBase64(String key) {
 			PrivateKey pvt = null;
 			try {
 				key = key.replace(PRIVATE_HEADER, "");
 				key = key.replace(PRIVATE_FOOTER, "");
+				key = key.replace("\n","");
 
 				byte[] bytes = Base64.getDecoder().decode(key.getBytes());
 
@@ -79,6 +80,7 @@ public class JwtProvider {
 			try {
 				key = key.replace(PUBLIC_HEADER, "");
 				key = key.replace(PUBLIC_FOOTER, "");
+				key = key.replace("\n","");
 
 				byte[] bytes = Base64.getDecoder().decode(key.getBytes());
 

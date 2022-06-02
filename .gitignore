@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Helm ###
+chart/charts
+chart/Chart.lock

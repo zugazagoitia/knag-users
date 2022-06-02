@@ -1,0 +1,38 @@
+image:
+  repository: "ghcr.io/zugazagoitia/knag-users"
+  tag: "0.3.3"
+
+db:
+  username: "dbuser"
+  name: "users"
+  port: 27017
+
+mailgun:
+  apiUrl: "https://api.eu.mailgun.net/v3"
+  apiKey:
+  domain:
+  sender:
+
+recaptcha:
+  siteKey:
+  secretKey:
+
+rsaKey:
+  pub:
+  priv:
+
+
+
+replicaCount: 3
+
+mongodb:
+  architecture: replicaset
+  replicaCount: 3 # Horizontal scaling?
+  auth:
+    enabled: true
+    usernames:
+      - "dbuser"
+    databases:
+      - "users"
+    existingSecret: knag-users-db-secret
+  

@@ -1,0 +1,48 @@
+name: Helm
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**/Chart.yaml'
+
+jobs:
+  publish:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Chart Checkout
+        uses: actions/checkout@v2
+
+      - name: Helm Installation
+        uses: azure/setup-helm@v2.0
+        with:
+          version: v3.9.0
+
+      - name: Helm Repository Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: zugazagoitia/knag-helm-repo
+          token: ${{ secrets.BOT_GH_TOKEN }}
+          fetch-depth: 0
+          persist-credentials: true
+          ref: main
+          path: knag-helm-repo
+
+      - name: Helm Package
+        run: |
+          cd chart
+          helm dependency update
+          helm package . -d ../knag-helm-repo
+          cd ..
+
+      - name: Helm Push
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_GH_TOKEN }}
+        run: |
+          git config --global user.email "chartbot@zugazagoitia.com"
+          git config --global user.name "knag-charts[bot]"
+          cd knag-helm-repo
+          git add "*.tgz"
+          git commit -m "Added packaged chart from $GITHUB_REPOSITORY"
+          git push origin main
