@@ -37,9 +37,9 @@ spec:
         - name: SPRING_DATA_MONGODB_HOST
           value: {{ .Values.db.host | default (include "mongodb.service.nameOverride" .Subcharts.mongodb) | quote}}
         - name: SPRING_DATA_MONGODB_PORT
-          value: {{ required .Values.db.port }}
+          value: {{ required "Missing database port" .Values.db.port }}
         - name: SPRING_DATA_MONGODB_AUTHENTICATION-DATABASE
-          value: {{ required .Values.db.name | quote}}
+          value: {{ required "Missing value: authentication-database" .Values.db.name | quote}}
         - name: SPRING_DATA_MONGODB_DATABASE
           value: {{ .Values.db.name }}
         - name: SPRING_DATA_MONGODB_USERNAME
@@ -51,21 +51,21 @@ spec:
               key: mongodb-passwords
               optional: false
         - name: MAILGUN_APIURL
-          value: {{ required .Values.mailgun.apiUrl | quote}}
+          value: {{ required "Missing mailgun api url" .Values.mailgun.apiUrl | quote}}
         - name: MAILGUN_APIKEY
-          value: {{ required .Values.mailgun.apiKey | quote}}
+          value: {{ required "Missing mailgun api key" .Values.mailgun.apiKey | quote}}
         - name: MAILGUN_DOMAIN
-          value: {{ required .Values.mailgun.domain | quote}}
+          value: {{ required "Missing mailgun api domain" .Values.mailgun.domain | quote}}
         - name: MAILGUN_SENDER
-          value: {{ required .Values.mailgun.sender | quote}}
+          value: {{ required "Missing mailgun api sender" .Values.mailgun.sender | quote}}
         - name: RECAPTCHA_KEY_SITE
-          value: {{ required .Values.recaptcha.siteKey | quote}}
+          value: {{ required "Missing recaptcha site key" .Values.recaptcha.siteKey | quote}}
         - name: RECAPTCHA_KEY_SECRET
-          value: {{ required .Values.recaptcha.secretKey | quote}}
+          value: {{ required "Missing recaptcha secret" .Values.recaptcha.secretKey | quote}}
         - name: KNAG_KEY_PRIV
-          value: {{required .Values.rsaKey.priv}}
+          value: {{required "Missing rsa private key" .Values.rsaKey.priv}}
         - name: KNAG_KEY_PUB
-          value: {{required .Values.rsaKey.pub}}
+          value: {{required "Missing rsa public key" .Values.rsaKey.pub}}
 
 
         ports:
