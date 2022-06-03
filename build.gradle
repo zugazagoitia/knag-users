@@ -10,7 +10,7 @@ plugins {
 
 group = 'com.zugazagoitia.knag'
 //Must be formatted following the RegEx: /version\s*=\s*'\S+'/g
-version = '0.4.1'
+version = '0.4.2'
 sourceCompatibility = '17'
 
 configurations {
@@ -47,7 +47,7 @@ dependencies {
 	implementation 'com.auth0:java-jwt:3.19.2'
 
 	implementation 'net.sargue:mailgun:1.10.0'
-	implementation "javax.annotation:javax.annotation-api:1.3.2"
+	implementation 'jakarta.annotation:jakarta.annotation-api:2.1.0' //Needed for MailGun
 	implementation 'org.glassfish.jersey.inject:jersey-hk2:3.0.4'
 
 

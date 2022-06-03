@@ -7,7 +7,6 @@ import net.sargue.mailgun.Configuration;
 import net.sargue.mailgun.Mail;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.text.MessageFormat;
 import java.util.logging.Level;
 

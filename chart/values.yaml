@@ -1,6 +1,6 @@
 image:
   repository: "ghcr.io/zugazagoitia/knag-users"
-  tag: "0.4.1"
+  tag: "0.4.2"
 
 db:
   username: "dbuser"
