@@ -1,6 +1,6 @@
 image:
   repository: "ghcr.io/zugazagoitia/knag-users"
-  tag: "0.4.0"
+  tag: "0.4.1"
 
 db:
   username: "dbuser"
@@ -26,8 +26,7 @@ rsaKey:
 replicaCount: 3
 
 mongodb:
-  architecture: replicaset
-  replicaCount: 3 # Horizontal scaling?
+  architecture: standalone
   auth:
     enabled: true
     usernames:
@@ -35,6 +34,4 @@ mongodb:
     databases:
       - "users"
     existingSecret: knag-users-db-secret
-  arbiter:
-    enabled: false
   

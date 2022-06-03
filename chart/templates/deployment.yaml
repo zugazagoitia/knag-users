@@ -35,7 +35,7 @@ spec:
         image: {{.Values.image.repository}}:{{ .Values.image.tag }}
         env:
         - name: SPRING_DATA_MONGODB_HOST
-          value: {{ .Values.db.host | default (include "mongodb.service.nameOverride" .Subcharts.mongodb) | quote}}
+          value: {{ .Values.db.host | default (include "mongodb.fullname" .Subcharts.mongodb) | quote}}
         - name: SPRING_DATA_MONGODB_PORT
           value: {{ required "Missing database port" .Values.db.port | quote}}
         - name: SPRING_DATA_MONGODB_AUTHENTICATION-DATABASE
