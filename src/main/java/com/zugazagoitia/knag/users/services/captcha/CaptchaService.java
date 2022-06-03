@@ -1,14 +1,17 @@
 package com.zugazagoitia.knag.users.services.captcha;
 
 import com.zugazagoitia.knag.users.model.exceptions.CaptchaException;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestOperations;
 
 import java.net.URI;
+import java.util.logging.Level;
 import java.util.regex.Pattern;
 
+@Log
 @Service("captchaService")
 public class CaptchaService {
 
@@ -19,6 +22,9 @@ public class CaptchaService {
 
 	@Autowired
 	public CaptchaService(CaptchaSettings captchaSettings, RestOperations restTemplate) {
+		log.log(Level.CONFIG, "Captcha secret: " + captchaSettings.getSecret());
+		log.log(Level.CONFIG, "Captcha site: " + captchaSettings.getSite());
+
 		this.captchaSettings = captchaSettings;
 		this.restTemplate = restTemplate;
 	}

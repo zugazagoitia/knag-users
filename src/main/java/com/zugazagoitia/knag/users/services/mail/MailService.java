@@ -1,6 +1,7 @@
 package com.zugazagoitia.knag.users.services.mail;
 
 import com.zugazagoitia.knag.users.model.EmailVerificationToken;
+import lombok.extern.java.Log;
 import net.sargue.mailgun.Configuration;
 
 import net.sargue.mailgun.Mail;
@@ -8,7 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
+import java.util.logging.Level;
 
+@Log
 @Service("mailService")
 public class MailService {
 
@@ -18,6 +21,12 @@ public class MailService {
 	                   @Value("#{mailSettings.apiBaseUrl}") String apiBaseUrl,
 	                   @Value("#{mailSettings.domainName}") String domainName,
 	                   @Value("#{mailSettings.sender}") String sender) {
+
+		log.log(Level.CONFIG, "Mailgun api key: " + apiKey);
+		log.log(Level.CONFIG, "Mailgun api base url: " + apiBaseUrl);
+		log.log(Level.CONFIG, "Mailgun domain name: " + domainName);
+		log.log(Level.CONFIG, "Mailgun sender: " + sender);
+
 
 		configuration = new Configuration()
 				.apiKey(apiKey)

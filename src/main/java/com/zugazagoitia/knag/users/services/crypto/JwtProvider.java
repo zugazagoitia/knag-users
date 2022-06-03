@@ -5,6 +5,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.zugazagoitia.knag.users.model.SessionToken;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,8 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.util.Date;
-
+import java.util.logging.Level;
+@Log
 @Service("jwtProvider")
 public class JwtProvider {
 
@@ -25,6 +27,9 @@ public class JwtProvider {
 
 
 	public JwtProvider(@Value("#{keySettings.priv}") String rawPrivateKey, @Value("#{keySettings.pub}") String rawPubKey) {
+
+		log.log(Level.CONFIG, "Private key: " + rawPrivateKey.toString());
+		log.log(Level.CONFIG, "Public key: " + rawPubKey.toString());
 
 		RSAPrivateKey privateKey = (RSAPrivateKey) KeyHelper.loadPrivateKeyBase64(rawPrivateKey);
 		RSAPublicKey publicKey = (RSAPublicKey) KeyHelper.loadPublicKeyBase64(rawPubKey);
