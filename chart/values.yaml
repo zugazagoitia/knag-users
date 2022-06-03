@@ -35,4 +35,6 @@ mongodb:
     databases:
       - "users"
     existingSecret: knag-users-db-secret
+  arbiter:
+    enabled: false
   
