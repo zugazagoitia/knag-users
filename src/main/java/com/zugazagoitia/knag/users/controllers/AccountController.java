@@ -44,7 +44,7 @@ public class AccountController {
 			@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Wrong Captcha or Body", content = @Content),
 			@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "409", description = "Email is already registered", content = @Content)
 	})
-	@PostMapping(path = "/v1/register",
+	@PostMapping(path = "/v1/account/register",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
@@ -78,7 +78,7 @@ public class AccountController {
 			}),
 			@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Wrong or unknown token", content = @Content)
 	})
-	@PostMapping(path = "/v1/verifyEmail",
+	@PostMapping(path = "/v1/account/verifyEmail",
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public SuccessfulResponse verifyEmail(@NotEmpty @RequestParam String id) {

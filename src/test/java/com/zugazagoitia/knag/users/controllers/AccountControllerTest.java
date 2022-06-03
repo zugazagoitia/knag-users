@@ -77,7 +77,7 @@ class AccountControllerTest {
 
 	@Test
 	void validRegister() throws Exception {
-		this.mockMvc.perform(post("/v1/register")
+		this.mockMvc.perform(post("/v1/account/register")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(validRegisterForm)))
 				.andExpect(status().isCreated());
@@ -93,7 +93,7 @@ class AccountControllerTest {
 						validRegisterForm.getSurname(),
 						"wrongcaptcha");
 
-		this.mockMvc.perform(post("/v1/register")
+		this.mockMvc.perform(post("/v1/account/register")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(wrongForm)))
 				.andExpect(status().isBadRequest());
@@ -108,7 +108,7 @@ class AccountControllerTest {
 						validRegisterForm.getSurname(),
 						validRegisterForm.getCaptcha());
 
-		this.mockMvc.perform(post("/v1/register")
+		this.mockMvc.perform(post("/v1/account/register")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(wrongForm)))
 				.andExpect(status().isBadRequest());
@@ -123,7 +123,7 @@ class AccountControllerTest {
 						validRegisterForm.getSurname(),
 						validRegisterForm.getCaptcha());
 
-		this.mockMvc.perform(post("/v1/register")
+		this.mockMvc.perform(post("/v1/account/register")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(wrongForm)))
 				.andExpect(status().isBadRequest());
@@ -138,7 +138,7 @@ class AccountControllerTest {
 						validRegisterForm.getSurname(),
 						validRegisterForm.getCaptcha());
 
-		this.mockMvc.perform(post("/v1/register")
+		this.mockMvc.perform(post("/v1/account/register")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(wrongForm)))
 				.andExpect(status().isBadRequest());
@@ -153,7 +153,7 @@ class AccountControllerTest {
 						validRegisterForm.getSurname(),
 						validRegisterForm.getCaptcha());
 
-		this.mockMvc.perform(post("/v1/register")
+		this.mockMvc.perform(post("/v1/account/register")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(wrongForm)))
 				.andExpect(status().isBadRequest());
@@ -168,7 +168,7 @@ class AccountControllerTest {
 						validRegisterForm.getSurname(),
 						validRegisterForm.getCaptcha());
 
-		this.mockMvc.perform(post("/v1/register")
+		this.mockMvc.perform(post("/v1/account/register")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(wrongForm)))
 				.andExpect(status().isBadRequest());
@@ -183,7 +183,7 @@ class AccountControllerTest {
 						"",
 						validRegisterForm.getCaptcha());
 
-		this.mockMvc.perform(post("/v1/register")
+		this.mockMvc.perform(post("/v1/account/register")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(wrongForm)))
 				.andExpect(status().isBadRequest());
@@ -198,7 +198,7 @@ class AccountControllerTest {
 						validRegisterForm.getSurname(),
 						"");
 
-		this.mockMvc.perform(post("/v1/register")
+		this.mockMvc.perform(post("/v1/account/register")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(wrongForm)))
 				.andExpect(status().isBadRequest());
@@ -213,7 +213,7 @@ class AccountControllerTest {
 						validRegisterForm.getSurname(),
 						validRegisterForm.getCaptcha());
 
-		this.mockMvc.perform(post("/v1/register")
+		this.mockMvc.perform(post("/v1/account/register")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(objectMapper.writeValueAsString(wrongForm)))
 				.andExpect(status().isConflict());
@@ -226,7 +226,7 @@ class AccountControllerTest {
 
 		when(accountService.validateEmail(validToken)).thenReturn(true);
 
-		this.mockMvc.perform(post("/v1/verifyEmail?id=" + validToken))
+		this.mockMvc.perform(post("/v1/account/verifyEmail?id=" + validToken))
 				.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("\"status\":200")));
@@ -237,7 +237,7 @@ class AccountControllerTest {
 
 		when(accountService.validateEmail(validToken)).thenReturn(true);
 
-		this.mockMvc.perform(post("/v1/verifyEmail?id=" + new StringBuilder(validToken).reverse()))
+		this.mockMvc.perform(post("/v1/account/verifyEmail?id=" + new StringBuilder(validToken).reverse()))
 				.andDo(print())
 				.andExpect(status().isBadRequest());
 	}
@@ -247,7 +247,7 @@ class AccountControllerTest {
 
 		when(accountService.validateEmail(validToken)).thenReturn(true);
 
-		this.mockMvc.perform(post("/v1/verifyEmail?id="))
+		this.mockMvc.perform(post("/v1/account/verifyEmail?id="))
 				.andDo(print())
 				.andExpect(status().isBadRequest());
 	}
@@ -257,7 +257,7 @@ class AccountControllerTest {
 
 		when(accountService.validateEmail(validToken)).thenReturn(true);
 
-		this.mockMvc.perform(post("/v1/verifyEmail"))
+		this.mockMvc.perform(post("/v1/account/verifyEmail"))
 				.andDo(print())
 				.andExpect(status().isBadRequest());
 	}
@@ -267,7 +267,7 @@ class AccountControllerTest {
 
 		when(accountService.validateEmail(validToken)).thenReturn(true);
 
-		this.mockMvc.perform(post("/v1/verifyEmail?id=" + validToken.substring(0, validToken.length() / 2)))
+		this.mockMvc.perform(post("/v1/account/verifyEmail?id=" + validToken.substring(0, validToken.length() / 2)))
 				.andDo(print())
 				.andExpect(status().isBadRequest());
 	}
