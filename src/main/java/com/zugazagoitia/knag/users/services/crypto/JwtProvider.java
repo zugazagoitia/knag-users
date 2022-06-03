@@ -67,6 +67,7 @@ public class JwtProvider {
 				key = key.replace(PRIVATE_HEADER, "");
 				key = key.replace(PRIVATE_FOOTER, "");
 				key = key.replace("\n","");
+				key = key.replace("\r","");
 
 				byte[] bytes = Base64.getDecoder().decode(key.getBytes());
 
@@ -86,6 +87,7 @@ public class JwtProvider {
 				key = key.replace(PUBLIC_HEADER, "");
 				key = key.replace(PUBLIC_FOOTER, "");
 				key = key.replace("\n","");
+				key = key.replace("\r","");
 
 				byte[] bytes = Base64.getDecoder().decode(key.getBytes());
 

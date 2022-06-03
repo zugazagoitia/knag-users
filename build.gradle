@@ -10,7 +10,7 @@ plugins {
 
 group = 'com.zugazagoitia.knag'
 //Must be formatted following the RegEx: /version\s*=\s*'\S+'/g
-version = '0.3.4'
+version = '0.3.5'
 sourceCompatibility = '17'
 
 configurations {
